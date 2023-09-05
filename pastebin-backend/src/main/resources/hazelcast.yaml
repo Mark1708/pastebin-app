@@ -1,0 +1,6 @@
+hazelcast:
+  cluster-name: pastebin-dev
+  network:
+    join:
+      multicast:
+        enabled: true

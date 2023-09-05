@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: pastebin-app
+  datasource:
+    hikari:
+      minimum-idle: 1
+      max-lifetime: 1800000
+      idle-timeout: 600000
+      connection-timeout: 30000
+      data-source-properties:
+        ApplicationName: ${spring.application.name)
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        types:
+          print:
+            banner: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+        javax:
+          cache:
+            missing_cache_strategy: create
+        format_sql: true
+    open-in-view: false
+    show-sql: false
+server:
+  tomcat:
+    threads:
+      max: 1
+      min-spare: 1
+logging:
+  level:
+    com.hazelcast.system.logo: error

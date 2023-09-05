@@ -1,0 +1,36 @@
+server:
+  port: 8081
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pastebin
+    username: admin
+    password: password
+
+minio:
+  endpoint: http://localhost
+  port: 9000
+  key:
+    access: TAmyCIVrCjMtUF9ftzMV
+    secret: 5NAyOlF3Zjs427jUmMGyC2TgTupHGafsr9HiCshQ
+  bucket:
+    name: pastebin-bucket
+  folders:
+    bin: bin/
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "health,info,prometheus"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+logging:
+  level:
+    com.elementsoft: DEBUG

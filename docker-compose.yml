@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password
+    command: server --console-address ":9001" /data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data/minio:/data
+
+  hazelcast-1:
+    image: hazelcast/hazelcast:5.2.0
+    container_name: hazelcast-1
+    ports:
+      - "5701:5701"
+    volumes:
+      - ./data/hazelcast:/mnt
+
+  hazelcast-2:
+    image: hazelcast/hazelcast:5.2.0
+    container_name: hazelcast-2
+    ports:
+      - "5702:5701"
+    volumes:
+      - ./data/hazelcast:/mnt
+
+  hazelcast-management-center:
+    image: hazelcast/management-center:5.2.0
+    container_name: hazelcast-management-center
+    environment:
+      - MC_DEFAULT_CLUSTER=dev
+      - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast-1,hazelcast-2
+      - MC_ALLOW_MULTIPLE_LOGIN=true
+      - MC_ADMIN_USER=admin123
+      - MC_ADMIN_PASSWORD=p1a2s3s4w5o6r7d
+    ports:
+      - "8080:8080"
+        
+  postgres:
+    image: postgres:14.8-alpine3.18
+    environment:
+      POSTGRES_DB: "pastebin"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./data/postgres/init:/docker-entrypoint-initdb.d
+      - ./data/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
