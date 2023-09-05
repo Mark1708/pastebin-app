@@ -14,15 +14,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class HashServiceImpl implements HashService {
 
-  private final HazelcastInstance hazelcastInstance;
+  private final IQueue<String> hashQueue;
   private final PasteRepository pasteRepository;
 
   @Override
   public String getUniqueHash() {
-    if (hashQueue().isEmpty()) {
+    if (hashQueue.isEmpty()) {
       generate();
     }
-    return hashQueue().poll();
+    return hashQueue.poll();
   }
 
   @Override
@@ -37,7 +37,7 @@ public class HashServiceImpl implements HashService {
           .toString()
           .substring(0, 6);
     } while (isExistByHash(hash));
-    hashQueue().add(hash);
+    hashQueue.add(hash);
   }
 
   @Override
@@ -47,10 +47,7 @@ public class HashServiceImpl implements HashService {
 
   @Override
   public boolean hasPrepared(int minCount) {
-    return hashQueue().size() >= minCount;
+    return hashQueue.size() >= minCount;
   }
 
-  private IQueue<String> hashQueue() {
-    return hazelcastInstance.getQueue("hashQueue");
-  }
 }

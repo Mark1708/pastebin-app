@@ -12,6 +12,7 @@ import mark1708.com.pastebin.domain.Paste;
 import mark1708.com.pastebin.domain.Tag;
 import mark1708.com.pastebin.dto.CreatePasteDto;
 import mark1708.com.pastebin.repository.PasteRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class PasteServiceImpl implements PasteService {
   private final ContentStorageService contentStorageService;
 
   @Override
+  @Cacheable("pasteByHash")
   public Paste getPasteByHash(String hash) {
     return pasteRepository.findById(hash).orElseThrow(() -> new RuntimeException("Такого нет"));
   }
