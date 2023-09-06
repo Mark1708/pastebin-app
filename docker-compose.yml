@@ -15,21 +15,13 @@ services:
     volumes:
       - ./data/minio:/data
 
-  hazelcast-1:
-    image: hazelcast/hazelcast:5.2.0
-    container_name: hazelcast-1
-    ports:
-      - "5701:5701"
-    volumes:
-      - ./data/hazelcast:/mnt
-
-  hazelcast-2:
-    image: hazelcast/hazelcast:5.2.0
-    container_name: hazelcast-2
-    ports:
-      - "5702:5701"
-    volumes:
-      - ./data/hazelcast:/mnt
+#  hazelcast-1:
+#    image: hazelcast/hazelcast:5.2.0
+#    container_name: hazelcast-1
+#    ports:
+#      - "5701:5701"
+#    volumes:
+#      - ./data/hazelcast:/mnt
 
   hazelcast-management-center:
     image: hazelcast/management-center:5.2.0
@@ -55,3 +47,47 @@ services:
       - ./data/postgres/data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  keycloak-postgres:
+    image: postgres:14.8-alpine3.18
+    container_name: keycloak-postgres
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: kk
+    healthcheck:
+      test: pg_isready -d postgres
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "5434:5432"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.2
+    container_name: keycloak
+    command:
+      - start --auto-build --db postgres --hostname-strict-https false --hostname-strict false --proxy edge --http-enabled true --import-realm --spi-user-profile-legacy-user-profile-read-only-attributes *_RES_ACCESS_MODE
+    environment:
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/kk
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_DB_SCHEMA: public
+      KC_FEATURES: preview
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8282:8080"
+    depends_on:
+      keycloak-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://0.0.0.0:8080/realms/master" ]
+      interval: 30s
+      retries: 3
+      timeout: 5s
