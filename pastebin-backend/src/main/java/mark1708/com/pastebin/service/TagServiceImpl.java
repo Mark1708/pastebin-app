@@ -17,7 +17,7 @@ public class TagServiceImpl implements TagService {
   private final TagRepository tagRepository;
 
   @Override
-  @Cacheable("tagByName")
+//  @Cacheable("tagByName")
   public Optional<Tag> findByName(String name) {
     return tagRepository.findByName(name);
   }
@@ -30,8 +30,7 @@ public class TagServiceImpl implements TagService {
 
   @Override
   public Tag save(String name) {
-    Optional<Tag> tagOptional = findByName(name);
-    if (tagOptional.isPresent()) {
+    if (findByName(name).isPresent()) {
       throw new RuntimeException("Tag is exists");
     } else {
       return tagRepository.saveAndFlush(

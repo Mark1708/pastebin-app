@@ -9,6 +9,21 @@ spring:
     url: jdbc:postgresql://localhost:5432/pastebin
     username: admin
     password: password
+  security:
+    oauth2:
+      client:
+        registration:
+          backend-clients:
+            client-id: backend-clients
+            client-secret: 44cllIaCse2NHAnS1NYyvrfoIGGm27sx
+            scope: openid, profile, roles
+            authorization-grant-type: client_credentials
+        provider:
+          backend-clients:
+            issuer-uri: http://localhost:8282/realms/pastebin
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8282/realms/pastebin/protocol/openid-connect/certs
 
 minio:
   endpoint: http://localhost
@@ -21,10 +36,19 @@ minio:
   folders:
     bin: bin/
 
+springdoc:
+  packagesToScan: mark1708.com.pastebin
+  show-actuator: true
+  api-docs:
+    path: /api/v1/docs/api-docs
+  swagger-ui:
+    path: /api/v1/docs/swagger-ui.html
+
 management:
   endpoints:
     enabled-by-default: true
     web:
+      base-path: /management/actuator
       exposure:
         include: "health,info,prometheus"
   metrics:
@@ -34,3 +58,8 @@ management:
 logging:
   level:
     com.elementsoft: DEBUG
+
+token:
+  converter:
+    principal-attribute: preferred_username
+    resource-id: pastebin
