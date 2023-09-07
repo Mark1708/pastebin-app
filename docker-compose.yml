@@ -37,6 +37,7 @@ services:
         
   postgres:
     image: postgres:14.8-alpine3.18
+    container_name: postgres
     environment:
       POSTGRES_DB: "pastebin"
       POSTGRES_USER: "admin"
@@ -46,7 +47,7 @@ services:
       - ./data/postgres/init:/docker-entrypoint-initdb.d
       - ./data/postgres/data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "54322:5432"
 
   keycloak-postgres:
     image: postgres:14.8-alpine3.18

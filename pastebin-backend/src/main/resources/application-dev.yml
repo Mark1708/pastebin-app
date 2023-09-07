@@ -6,7 +6,7 @@ spring:
       on-profile:
         - dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/pastebin
+    url: jdbc:postgresql://localhost:54322/pastebin
     username: admin
     password: password
   security:
@@ -15,7 +15,7 @@ spring:
         registration:
           backend-clients:
             client-id: backend-clients
-            client-secret: 44cllIaCse2NHAnS1NYyvrfoIGGm27sx
+            client-secret: aW3Kv8sJqEBqofT19xBsjHPyCiP0i7GT
             scope: openid, profile, roles
             authorization-grant-type: client_credentials
         provider:
@@ -29,8 +29,8 @@ minio:
   endpoint: http://localhost
   port: 9000
   key:
-    access: TAmyCIVrCjMtUF9ftzMV
-    secret: 5NAyOlF3Zjs427jUmMGyC2TgTupHGafsr9HiCshQ
+    access: ICXvqKor7HKIsXm5MUhj
+    secret: dGG3c2MaAPaABagTo3IBOjC2zzYXt8mc3Dg87GAk
   bucket:
     name: pastebin-bucket
   folders:
