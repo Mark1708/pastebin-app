@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mark1708.com.pastebin.exception.http.BadRequestException;
 import mark1708.com.pastebin.exception.http.ResourceNotFoundException;
 import mark1708.com.pastebin.model.entity.Paste;
 import mark1708.com.pastebin.model.entity.Tag;
@@ -91,7 +92,7 @@ public class PasteServiceImpl implements PasteService {
           expirationAt = validExpiresFormatter
               .parse(expiration).toInstant();
         } catch (ParseException e) {
-          throw new RuntimeException(e);
+          throw new BadRequestException("Unrecognized expiration type or date format", e);
         }
       }
     }
