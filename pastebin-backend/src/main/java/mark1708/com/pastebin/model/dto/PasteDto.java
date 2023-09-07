@@ -1,5 +1,6 @@
 package mark1708.com.pastebin.model.dto;
 
+import java.time.Instant;
 import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ public class PasteDto extends BaseDto {
   private String author;
   private List<String> tags;
   private String content;
+  private Instant createdAt;
   private String expiration;
 
 }

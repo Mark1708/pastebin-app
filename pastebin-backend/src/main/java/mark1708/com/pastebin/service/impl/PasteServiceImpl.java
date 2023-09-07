@@ -62,12 +62,14 @@ public class PasteServiceImpl implements PasteService {
             .contentPath(contentPath)
             .createdAt(createdAt)
             .expiredAt(getExpirationDateTime(createdAt, createPasteDto.getExpiration()))
+            .expiration(createPasteDto.getExpiration())
             .tags(tags)
             .build()
     );
   }
 
   @Override
+  @Transactional
   public void deleteExpiredPastes() {
     pasteRepository.deleteExpiredPastes();
   }
