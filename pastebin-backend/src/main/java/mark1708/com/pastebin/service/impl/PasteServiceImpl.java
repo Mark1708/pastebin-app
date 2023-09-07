@@ -8,9 +8,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mark1708.com.pastebin.domain.Paste;
-import mark1708.com.pastebin.domain.Tag;
-import mark1708.com.pastebin.dto.CreatePasteDto;
+import mark1708.com.pastebin.model.entity.Paste;
+import mark1708.com.pastebin.model.entity.Tag;
+import mark1708.com.pastebin.model.dto.CreatePasteDto;
 import mark1708.com.pastebin.repository.PasteRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -54,6 +54,11 @@ public class PasteServiceImpl implements PasteService {
             .tags(tags)
             .build()
     );
+  }
+
+  @Override
+  public void deleteExpiredPastes() {
+    pasteRepository.deleteExpiredPastes();
   }
 
   private Instant getExpirationDateTime(Instant createdAt, String expiration) {

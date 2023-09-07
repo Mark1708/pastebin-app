@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mark1708.com.pastebin.domain.Tag;
+import mark1708.com.pastebin.exception.http.BadRequestException;
+import mark1708.com.pastebin.model.entity.Tag;
 import mark1708.com.pastebin.repository.TagRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class TagServiceImpl implements TagService {
   @Override
   public Tag save(String name) {
     if (findByName(name).isPresent()) {
-      throw new RuntimeException("Tag is exists");
+      throw new BadRequestException("Tag with name " + name + " already exists");
     } else {
       return tagRepository.saveAndFlush(
           new Tag(name)
