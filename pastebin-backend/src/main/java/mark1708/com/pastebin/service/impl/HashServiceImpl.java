@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.service;
+package mark1708.com.pastebin.service.impl;
 
 import com.google.common.hash.Hashing;
 import com.hazelcast.collection.IQueue;
@@ -7,6 +7,7 @@ import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mark1708.com.pastebin.repository.PasteRepository;
+import mark1708.com.pastebin.service.HashService;
 import org.springframework.stereotype.Service;
 
 @Slf4j

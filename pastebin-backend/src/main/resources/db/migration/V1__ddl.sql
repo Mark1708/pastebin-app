@@ -6,6 +6,7 @@ CREATE TABLE pastes
     content_path VARCHAR(200) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     expired_at TIMESTAMP NOT NULL,
+    expiration VARCHAR(5) NOT NULL,
     CONSTRAINT hash_unique UNIQUE (hash)
 );
 

@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.dto;
+package mark1708.com.pastebin.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

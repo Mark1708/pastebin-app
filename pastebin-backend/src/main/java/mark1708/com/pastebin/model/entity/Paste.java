@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.domain;
+package mark1708.com.pastebin.model.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -35,6 +35,7 @@ public class Paste implements Serializable {
   private String title;
   private String author;
   private String contentPath;
+  private String expiration;
   private Instant createdAt;
   private Instant expiredAt;
 

@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.service;
+package mark1708.com.pastebin.service.impl;
 
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
@@ -8,6 +8,11 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mark1708.com.pastebin.exception.http.BadRequestException;
+import mark1708.com.pastebin.exception.http.ResourceNotFoundException;
+import mark1708.com.pastebin.model.enums.QueryType;
+import mark1708.com.pastebin.model.enums.ResourceType;
+import mark1708.com.pastebin.service.ContentStorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +43,7 @@ public class ContentStorageServiceImpl implements ContentStorageService {
               .build()
       );
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new BadRequestException("Error during upload content in S3 storage", e);
     }
     return path;
   }
@@ -54,7 +59,8 @@ public class ContentStorageServiceImpl implements ContentStorageService {
     ) {
       return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      e.printStackTrace();
+      throw new ResourceNotFoundException(ResourceType.CONTENT, QueryType.PATH, path);
     }
   }
 }

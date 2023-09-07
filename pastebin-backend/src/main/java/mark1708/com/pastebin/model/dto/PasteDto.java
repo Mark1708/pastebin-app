@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.dto;
+package mark1708.com.pastebin.model.dto;
 
 import java.util.List;
 import lombok.Data;

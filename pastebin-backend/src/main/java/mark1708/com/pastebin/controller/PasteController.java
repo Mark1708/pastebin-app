@@ -2,10 +2,11 @@ package mark1708.com.pastebin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mark1708.com.pastebin.converter.PasteConverter;
-import mark1708.com.pastebin.dto.CreatePasteDto;
-import mark1708.com.pastebin.dto.PasteDto;
+import mark1708.com.pastebin.model.dto.CreatePasteDto;
+import mark1708.com.pastebin.model.dto.PasteDto;
 import mark1708.com.pastebin.service.PasteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class PasteController {
 
   @PostMapping
   @Operation(summary = "Создание заметки")
-  public ResponseEntity<String> createPaste(@RequestBody CreatePasteDto createPasteDto) {
+  public ResponseEntity<String> createPaste(@RequestBody @Valid CreatePasteDto createPasteDto) {
     return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(

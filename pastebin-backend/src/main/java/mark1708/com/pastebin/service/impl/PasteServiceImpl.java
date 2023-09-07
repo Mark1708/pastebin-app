@@ -1,5 +1,6 @@
-package mark1708.com.pastebin.service;
+package mark1708.com.pastebin.service.impl;
 
+import java.lang.module.ResolutionException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -8,10 +9,17 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mark1708.com.pastebin.exception.http.ResourceNotFoundException;
 import mark1708.com.pastebin.model.entity.Paste;
 import mark1708.com.pastebin.model.entity.Tag;
 import mark1708.com.pastebin.model.dto.CreatePasteDto;
+import mark1708.com.pastebin.model.enums.QueryType;
+import mark1708.com.pastebin.model.enums.ResourceType;
 import mark1708.com.pastebin.repository.PasteRepository;
+import mark1708.com.pastebin.service.ContentStorageService;
+import mark1708.com.pastebin.service.HashService;
+import mark1708.com.pastebin.service.PasteService;
+import mark1708.com.pastebin.service.TagService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +37,10 @@ public class PasteServiceImpl implements PasteService {
   @Override
   @Cacheable("pasteByHash")
   public Paste getPasteByHash(String hash) {
-    return pasteRepository.findById(hash).orElseThrow(() -> new RuntimeException("Такого нет"));
+    return pasteRepository.findById(hash)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            ResourceType.PASTE, QueryType.HASH, hash
+        ));
   }
 
   @Override

@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.domain;
+package mark1708.com.pastebin.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

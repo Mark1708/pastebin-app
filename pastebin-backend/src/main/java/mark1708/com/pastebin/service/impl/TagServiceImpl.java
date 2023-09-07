@@ -1,4 +1,4 @@
-package mark1708.com.pastebin.service;
+package mark1708.com.pastebin.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import mark1708.com.pastebin.exception.http.BadRequestException;
 import mark1708.com.pastebin.model.entity.Tag;
 import mark1708.com.pastebin.repository.TagRepository;
+import mark1708.com.pastebin.service.TagService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 

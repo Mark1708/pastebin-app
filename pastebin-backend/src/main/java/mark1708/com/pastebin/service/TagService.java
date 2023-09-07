@@ -2,7 +2,7 @@ package mark1708.com.pastebin.service;
 
 import java.util.List;
 import java.util.Optional;
-import mark1708.com.pastebin.domain.Tag;
+import mark1708.com.pastebin.model.entity.Tag;
 
 public interface TagService {
 
