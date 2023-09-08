@@ -5,10 +5,11 @@
 docker compose up -d
 ```
 
-# Upload realm config
+# First setting
 1. Log In `http://localhost:8282` admin:admin
 2. Open clients tab and regenerate credentials
 3. Change client credentials in application.yml
+4. Create user and set password
 
 # Start backend
 ```shell
@@ -17,7 +18,7 @@ cd pastebin-backend/ && ./gradlew bootRun --args='--spring.profiles.active=dev'
 
 # Start frontend
 ```shell
-cd ../pastebin-backend/ && npm install && npm start
+cd pastebin-frontend/ && npm install && npm start
 ```
 
 # Links
