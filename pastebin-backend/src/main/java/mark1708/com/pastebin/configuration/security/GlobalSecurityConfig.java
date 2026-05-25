@@ -13,22 +13,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class GlobalSecurityConfig {
 
-  private final JwtAuthConverter jwtAuthConverter;
+    private final JwtAuthConverter jwtAuthConverter;
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests()
-        .requestMatchers("/api/v1/docs/**").permitAll()
-        .anyRequest().authenticated();
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests()
+                .requestMatchers("/api/v1/docs/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
 
-    http.sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    http.cors().and().csrf().disable();
+        http.cors().and().csrf().disable();
 
-    http.oauth2ResourceServer()
-        .jwt()
-        .jwtAuthenticationConverter(jwtAuthConverter);
-    return http.build();
-  }
+        http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthConverter);
+        return http.build();
+    }
 }

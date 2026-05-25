@@ -10,17 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 @SpringBootApplication
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Pastebin",
-        version = "1.0",
-        description = "Description of Pastebin Rest API"
-    )
-)
+@OpenAPIDefinition(info = @Info(title = "Pastebin", version = "1.0", description = "Description of Pastebin Rest API"))
 public class PastebinBackendApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(PastebinBackendApplication.class, args);
-  }
-
+    public static void main(String[] args) {
+        SpringApplication.run(PastebinBackendApplication.class, args);
+    }
 }

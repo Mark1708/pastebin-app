@@ -30,23 +30,20 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Paste implements Serializable {
 
-  @Id
-  private String hash;
-  private String title;
-  private String author;
-  private String contentPath;
-  private String expiration;
-  private Instant createdAt;
-  private Instant expiredAt;
+    @Id
+    private String hash;
 
-  @ManyToMany(
-      fetch = FetchType.LAZY,
-      cascade = CascadeType.REMOVE
-  )
-  @JoinTable(
-      name = "pastes_tags",
-      joinColumns = @JoinColumn(name = "paste_hash"),
-      inverseJoinColumns = @JoinColumn(name = "tag_id")
-  )
-  private List<Tag> tags = new ArrayList<>();
+    private String title;
+    private String author;
+    private String contentPath;
+    private String expiration;
+    private Instant createdAt;
+    private Instant expiredAt;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "pastes_tags",
+            joinColumns = @JoinColumn(name = "paste_hash"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<>();
 }

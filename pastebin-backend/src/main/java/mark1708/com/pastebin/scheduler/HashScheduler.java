@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class HashScheduler {
 
-  private final HashService hashService;
+    private final HashService hashService;
 
-  @Scheduled(fixedDelay = 1000)
-  public void prepareHashes() {
-    while (!hashService.hasPrepared(10)) {
-      hashService.generate();
+    @Scheduled(fixedDelay = 1000)
+    public void prepareHashes() {
+        while (!hashService.hasPrepared(10)) {
+            hashService.generate();
+        }
     }
-  }
 }

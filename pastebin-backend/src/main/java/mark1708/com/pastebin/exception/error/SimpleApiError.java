@@ -16,8 +16,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class SimpleApiError implements ApiError {
 
-  /**
-   * Текстовое сообщение об ошибке.
-   */
-  private String message;
+    /**
+     * Текстовое сообщение об ошибке.
+     */
+    private String message;
 }

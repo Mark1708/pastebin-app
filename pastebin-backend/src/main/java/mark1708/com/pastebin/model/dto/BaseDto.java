@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseDto {
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  private UUID id;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private UUID id;
 }

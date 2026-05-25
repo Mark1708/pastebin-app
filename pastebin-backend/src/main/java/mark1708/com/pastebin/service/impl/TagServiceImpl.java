@@ -16,28 +16,26 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TagServiceImpl implements TagService {
 
-  private final TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
-  @Override
-//  @Cacheable("tagByName")
-  public Optional<Tag> findByName(String name) {
-    return tagRepository.findByName(name);
-  }
-
-  @Override
-  @Cacheable("tagByHash")
-  public List<Tag> findAllByPasteHash(String hash) {
-    return tagRepository.findAllByPasteHash(hash);
-  }
-
-  @Override
-  public Tag save(String name) {
-    if (findByName(name).isPresent()) {
-      throw new BadRequestException("Tag with name " + name + " already exists");
-    } else {
-      return tagRepository.saveAndFlush(
-          new Tag(name)
-      );
+    @Override
+    //  @Cacheable("tagByName")
+    public Optional<Tag> findByName(String name) {
+        return tagRepository.findByName(name);
     }
-  }
+
+    @Override
+    @Cacheable("tagByHash")
+    public List<Tag> findAllByPasteHash(String hash) {
+        return tagRepository.findAllByPasteHash(hash);
+    }
+
+    @Override
+    public Tag save(String name) {
+        if (findByName(name).isPresent()) {
+            throw new BadRequestException("Tag with name " + name + " already exists");
+        } else {
+            return tagRepository.saveAndFlush(new Tag(name));
+        }
+    }
 }

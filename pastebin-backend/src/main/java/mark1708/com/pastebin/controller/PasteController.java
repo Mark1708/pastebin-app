@@ -25,28 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/paste")
 public class PasteController {
 
-  private final PasteService pasteService;
-  private final PasteConverter pasteConverter;
+    private final PasteService pasteService;
+    private final PasteConverter pasteConverter;
 
-  @GetMapping("/{hash}")
-  @Operation(summary = "Получение заметки")
-  public ResponseEntity<PasteDto> getPaste(@PathVariable String hash) {
-    return ResponseEntity
-        .status(HttpStatus.OK)
-        .body(
-            pasteConverter.toDto(
-                pasteService.getPasteByHash(hash)
-            )
-        );
-  }
+    @GetMapping("/{hash}")
+    @Operation(summary = "Получение заметки")
+    public ResponseEntity<PasteDto> getPaste(@PathVariable String hash) {
+        return ResponseEntity.status(HttpStatus.OK).body(pasteConverter.toDto(pasteService.getPasteByHash(hash)));
+    }
 
-  @PostMapping
-  @Operation(summary = "Создание заметки")
-  public ResponseEntity<String> createPaste(@RequestBody @Valid CreatePasteDto createPasteDto) {
-    return ResponseEntity
-        .status(HttpStatus.CREATED)
-        .body(
-            pasteService.create(createPasteDto).getHash()
-        );
-  }
+    @PostMapping
+    @Operation(summary = "Создание заметки")
+    public ResponseEntity<String> createPaste(@RequestBody @Valid CreatePasteDto createPasteDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(pasteService.create(createPasteDto).getHash());
+    }
 }

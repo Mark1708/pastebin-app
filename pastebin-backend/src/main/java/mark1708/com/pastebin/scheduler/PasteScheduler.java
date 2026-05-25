@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PasteScheduler {
 
-  private final PasteService pasteService;
+    private final PasteService pasteService;
 
-  @Scheduled(fixedDelay = 5 * 60 * 1000)
-  public void cleanExpiredPastes() {
-    pasteService.deleteExpiredPastes();
-  }
+    @Scheduled(fixedDelay = 5 * 60 * 1000)
+    public void cleanExpiredPastes() {
+        pasteService.deleteExpiredPastes();
+    }
 }

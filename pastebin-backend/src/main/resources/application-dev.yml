@@ -8,14 +8,14 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:54322/pastebin
     username: admin
-    password: password
+    password: ${POSTGRES_PASSWORD:change-me}
   security:
     oauth2:
       client:
         registration:
           backend-clients:
             client-id: backend-clients
-            client-secret: aW3Kv8sJqEBqofT19xBsjHPyCiP0i7GT
+            client-secret: ${KEYCLOAK_CLIENT_SECRET:change-me}
             scope: openid, profile, roles
             authorization-grant-type: client_credentials
         provider:
@@ -29,8 +29,8 @@ minio:
   endpoint: http://localhost
   port: 9000
   key:
-    access: ICXvqKor7HKIsXm5MUhj
-    secret: dGG3c2MaAPaABagTo3IBOjC2zzYXt8mc3Dg87GAk
+    access: ${MINIO_ROOT_USER:change-me}
+    secret: ${MINIO_ROOT_PASSWORD:change-me}
   bucket:
     name: pastebin-bucket
   folders:

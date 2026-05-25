@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PasteRepository extends JpaRepository<Paste, String> {
 
-  @Modifying
-  @Query(value = """
+    @Modifying
+    @Query(value = """
       DELETE FROM Paste p WHERE p.expiredAt > NOW()
     """)
-  void deleteExpiredPastes();
+    void deleteExpiredPastes();
 }

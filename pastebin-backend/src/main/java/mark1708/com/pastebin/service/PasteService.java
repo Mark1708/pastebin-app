@@ -1,13 +1,13 @@
 package mark1708.com.pastebin.service;
 
-import mark1708.com.pastebin.model.entity.Paste;
 import mark1708.com.pastebin.model.dto.CreatePasteDto;
+import mark1708.com.pastebin.model.entity.Paste;
 
 public interface PasteService {
 
-  Paste getPasteByHash(String hash);
+    Paste getPasteByHash(String hash);
 
-  void deleteExpiredPastes();
+    void deleteExpiredPastes();
 
-  Paste create(CreatePasteDto createPasteDto);
+    Paste create(CreatePasteDto createPasteDto);
 }

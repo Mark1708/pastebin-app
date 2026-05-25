@@ -6,9 +6,9 @@ import mark1708.com.pastebin.model.entity.Tag;
 
 public interface TagService {
 
-  Optional<Tag> findByName(String name);
+    Optional<Tag> findByName(String name);
 
-  List<Tag> findAllByPasteHash(String hash);
+    List<Tag> findAllByPasteHash(String hash);
 
-  Tag save(String name);
+    Tag save(String name);
 }

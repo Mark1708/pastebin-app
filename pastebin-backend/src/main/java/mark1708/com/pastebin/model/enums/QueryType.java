@@ -4,13 +4,14 @@ import lombok.Getter;
 
 @Getter
 public enum QueryType {
-  ID("ids"),
-  HASH("hashes"),
-  NAME("names"),
-  PATH("paths");
+    ID("ids"),
+    HASH("hashes"),
+    NAME("names"),
+    PATH("paths");
 
-  private final String queryName;
-  QueryType(String queryName) {
-    this.queryName = queryName;
-  }
+    private final String queryName;
+
+    QueryType(String queryName) {
+        this.queryName = queryName;
+    }
 }

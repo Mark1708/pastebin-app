@@ -21,46 +21,40 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ContentStorageServiceImpl implements ContentStorageService {
 
-  @Value("${minio.bucket.name}")
-  private String bucketName;
+    @Value("${minio.bucket.name}")
+    private String bucketName;
 
-  @Value("${minio.folders.bin}")
-  private String folder;
+    @Value("${minio.folders.bin}")
+    private String folder;
 
-  private final MinioClient minioClient;
+    private final MinioClient minioClient;
 
-  @Override
-  public String uploadPasteContent(String hash, String content) {
-    String path = folder + hash;
-    byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
-    try {
-      minioClient.putObject(
-          PutObjectArgs.builder()
-              .bucket(bucketName)
-              .object(path)
-              .contentType("application/octet-stream")
-              .stream(new ByteArrayInputStream(contentBytes), contentBytes.length, -1)
-              .build()
-      );
-    } catch (Exception e) {
-      throw new BadRequestException("Error during upload content in S3 storage", e);
+    @Override
+    public String uploadPasteContent(String hash, String content) {
+        String path = folder + hash;
+        byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
+        try {
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(path)
+                            .contentType("application/octet-stream")
+                            .stream(new ByteArrayInputStream(contentBytes), contentBytes.length, -1)
+                            .build());
+        } catch (Exception e) {
+            throw new BadRequestException("Error during upload content in S3 storage", e);
+        }
+        return path;
     }
-    return path;
-  }
 
-  @Override
-  public String getPasteContent(String path) {
-    try (InputStream stream =
-        minioClient.getObject(
-            GetObjectArgs.builder()
-            .bucket(bucketName)
-                .object(path)
-                .build())
-    ) {
-      return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new ResourceNotFoundException(ResourceType.CONTENT, QueryType.PATH, path);
+    @Override
+    public String getPasteContent(String path) {
+        try (InputStream stream = minioClient.getObject(
+                GetObjectArgs.builder().bucket(bucketName).object(path).build())) {
+            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResourceNotFoundException(ResourceType.CONTENT, QueryType.PATH, path);
+        }
     }
-  }
 }

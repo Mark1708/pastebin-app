@@ -11,14 +11,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
-  Optional<Tag> findByName(String name);
+    Optional<Tag> findByName(String name);
 
-  @Query(value = """
+    @Query(value = """
           SELECT t.* FROM tags t
           JOIN pastes_tags pt ON t.id = pt.tag_id
           WHERE pt.paste_hash = :hash
-          """,
-      nativeQuery = true
-  )
-  List<Tag> findAllByPasteHash(@Param("hash") String hash);
+          """, nativeQuery = true)
+    List<Tag> findAllByPasteHash(@Param("hash") String hash);
 }

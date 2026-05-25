@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class PasteDto extends BaseDto {
 
-  private String hash;
-  private String title;
-  private String author;
-  private List<String> tags;
-  private String content;
-  private Instant createdAt;
-  private String expiration;
-
+    private String hash;
+    private String title;
+    private String author;
+    private List<String> tags;
+    private String content;
+    private Instant createdAt;
+    private String expiration;
 }

@@ -26,16 +26,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Tag implements Serializable {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private String name;
+    private String name;
 
-  @ManyToMany(mappedBy = "tags")
-  private List<Paste> pastes;
+    @ManyToMany(mappedBy = "tags")
+    private List<Paste> pastes;
 
-  public Tag(String name) {
-    this.name = name;
-  }
+    public Tag(String name) {
+        this.name = name;
+    }
 }

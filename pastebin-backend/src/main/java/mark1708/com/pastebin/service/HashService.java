@@ -2,11 +2,11 @@ package mark1708.com.pastebin.service;
 
 public interface HashService {
 
-  String getUniqueHash();
+    String getUniqueHash();
 
-  void generate();
+    void generate();
 
-  boolean isExistByHash(String hash);
+    boolean isExistByHash(String hash);
 
-  boolean hasPrepared(int minCount);
+    boolean hasPrepared(int minCount);
 }
