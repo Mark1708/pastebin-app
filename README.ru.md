@@ -72,9 +72,9 @@ React UI (localhost:3000)
 - Текст paste хранится в MinIO. PostgreSQL хранит metadata и `content_path`.
 - `realm-export.json` присутствует для bootstrap Keycloak realm. `docker-compose.yml` запускает Keycloak с `--import-realm`; если realm не импортировался автоматически в локальной среде, импортируйте этот файл вручную в Keycloak.
 
-## API overview
+## Обзор API
 
-| Method | Path | Auth | Description |
+| Метод | Путь | Auth | Описание |
 |---|---|---|---|
 | `POST` | `/api/v1/paste` | Bearer JWT | Создать paste и вернуть hash |
 | `GET` | `/api/v1/paste/{hash}` | Bearer JWT | Загрузить metadata и content paste по hash |
@@ -129,11 +129,11 @@ npm start
 | Hazelcast Management Center | `http://localhost:8080` | Local observability UI |
 | MinIO Console | `http://localhost:9001` | Local object storage console |
 
-## Ограничения / security
+## Ограничения / безопасность
 
 - Не используйте placeholder credentials вне локальной разработки.
 - Держите `.env` локально и замените все placeholder-значения перед первым запуском.
-- Local frontend config hardcodes Keycloak and backend URLs; external deployments need configuration work.
+- Local frontend config содержит hardcoded Keycloak и backend URLs; для external deployments нужна отдельная настройка конфигурации.
 - Backend отключает CSRF и использует stateless JWT validation для demo API.
 - Проект является demo и не должен рассматриваться как безопасный production deployment.
 - CI сейчас не настроен.
